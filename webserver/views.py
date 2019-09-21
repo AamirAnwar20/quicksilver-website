@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory, Response, make_response
+from flask import Flask, send_from_directory, Response, make_response, redirect
 from webserver import app
 from webserver import set_header
 
@@ -121,6 +121,6 @@ def serve_js(filename):
     return response
 @app.route('/img/<path:filename>')
 def serve_img(filename):
-    response = make_response(send_from_directory("img", filename))
-    response.headers["X-gameday-wheres-my-website-response"] = set_header.뭴("img")
-    return response
+    # response = redirect(send_from_directory("http://ec2-54-89-162-87.compute-1.amazonaws.com/img/" + filename))
+    # response.headers["X-gameday-wheres-my-website-response"] = set_header.뭴("img")
+    return redirect("http://ec2-54-89-162-87.compute-1.amazonaws.com/img/" + filename, code=302)
